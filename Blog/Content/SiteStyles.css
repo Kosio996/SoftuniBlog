@@ -44,6 +44,37 @@
     margin-left: 15px;
 }
 
+.margin-13 {
+    margin-top: 13px;
+    margin-right: 13px;
+}
+
+.search-icon {
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+    border-top-width: 0px;
+    background: #6b6969;
+    border-left: dashed 1px black;
+}
+
+.seach-icon-color {
+    color: black;
+}
+
+.seach-input {
+    background: none;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.border-input {
+    float: right;
+    border: dashed 1px black;
+}
+
 .sidenav {
     height: 100%;
     width: 0;

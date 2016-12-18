@@ -5578,7 +5578,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     }
 
     .navbar-default .navbar-toggle {
-        border-color: #1a242f;
+        border-color: black;
     }
 
         .navbar-default .navbar-toggle:hover,
@@ -5587,7 +5587,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
         }
 
         .navbar-default .navbar-toggle .icon-bar {
-            background-color: #ffffff;
+            background-color: black;
         }
 
     .navbar-default .navbar-collapse,

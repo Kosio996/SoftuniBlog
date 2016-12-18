@@ -11,7 +11,15 @@
 </head>
 <body style="background-image: url(../../Content/images/robots.png)">
     <div class="navbar navbar-default navbar-fixed-top">
+        @using (Html.BeginForm("SimpleSearch", "Article", FormMethod.Post) )
+        {
+                    <div class="margin-13 border-input">
+                        <input class="seach-input" type="text" id="articleName" name="articleName">
 
+                        <button class="search-icon" type="submit" id="submitId"><i class="fa fa-search seach-icon-color" aria-hidden="true"></i></button>
+
+                    </div>
+        }
         <div class="container">
             
 

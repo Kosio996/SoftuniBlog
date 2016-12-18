@@ -16,7 +16,6 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><img class="small-image" src="@Url.Action("UserPhotos", "Home" )" /></li>
                             <li>@Html.ActionLink("Users", "List", "User")</li>
                             <li>@Html.ActionLink("Categories", "List", "Category")</li>
                         </ul>
@@ -55,19 +54,7 @@ else
 
             <li><p>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</p></li>
             <li><p>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p></li>
-            @using (Html.BeginForm("SimpleSearch", "Article", FormMethod.Post))
-            {
-                <li>
-                    <form>
-                        <div>
-                            <input type="text" id="articleName" name="articleName">
-
-                            <input type="submit" id="submitId" value="submit" />
-
-                        </div>
-                    </form>
-                </li>
-            }
+            
 
 
         </ul>
