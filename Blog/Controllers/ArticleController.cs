@@ -303,12 +303,36 @@ namespace Blog.Controllers
                     return RedirectToAction("Index");
 
                 }
-
-
             }
             //  If model state is invalid , return the same view
 
             return View(model);
+        }
+
+
+        //
+        //GET: Article/Details
+        public ActionResult SimpleSearch(ArticleViewModel model , string articleName)
+        {
+            using (var database = new BlogDbContext())
+            {
+                //  Get the article from database
+                var article = database.Articles
+                    .Where(a => a.Title.Contains(articleName))
+                    .Include(a => a.Author)
+                    .Include(a => a.Tags)
+                    .First();
+
+                if (article.Title.Contains(articleName))
+                {
+                    return View(article);
+                }
+                else
+                {
+                    ViewBag.Message = "noResult";
+                    return ViewBag("Article doesn't exist !");
+                }
+            }
         }
 
         private bool IsUserAuthorizedToEdit(Article article)

@@ -12,6 +12,9 @@ namespace Blog.Models
         public string PhoneNumber { get; set; }
         public bool TwoFactor { get; set; }
         public bool BrowserRemembered { get; set; }
+
+            [Display(Name = "UserPhoto")]
+            public byte[] UserPhoto { get; set; }
     }
 
     public class ManageLoginsViewModel

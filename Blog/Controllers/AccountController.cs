@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Blog.Models;
+using System.IO;
+using System.Data.Entity;
 
 namespace Blog.Controllers
 {
@@ -22,7 +24,7 @@ namespace Blog.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace Blog.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +122,7 @@ namespace Blog.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -147,18 +149,34 @@ namespace Blog.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register([Bind(Exclude = "UserPhoto")]RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
+                //To convert the user uploaded Photo as Byte Array before save to DB
+                byte[] imageData = null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileBase poImgFile = Request.Files["UserPhoto"];
+
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                    }
+                }
+
                 var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email };
+
+                //Here we pass the byte array to user context to store in db
+                user.UserPhoto = imageData;
+
                 var result = await UserManager.CreateAsync(user, model.Password);
 
                 var addRoleResult = UserManager.AddToRole(user.Id, "User");
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -425,8 +443,71 @@ namespace Blog.Controllers
             base.Dispose(disposing);
         }
 
+
+
+        [HttpPost]
+        public ActionResult ChangePicture([Bind(Exclude = "UserPhoto")]RegisterViewModel model)
+        {
+
+            using (var database = new BlogDbContext())
+            {
+                //To convert the user uploaded Photo as Byte Array before save to Dd
+
+                var imageData = model.UserPhoto.ToString();
+                imageData = database.Users.ToString();
+                imageData.Contains(imageData);
+
+
+                database.Entry(imageData).State = EntityState.Modified;
+                database.SaveChanges();
+                //        if (Request.Files.Count > 0)
+                //        {
+                //            HttpPostedFileBase poImgFile = Request.Files["UserPhoto"];
+
+                //            using (var binary = new BinaryReader(poImgFile.InputStream))
+                //            {
+                //                imageData = binary.ReadBytes(poImgFile.ContentLength);
+                //            }
+                //        }
+
+                //        var user = new ApplicationUser { UserName = model.Email, FullName = model.FullName, Email = model.Email };
+
+                //        //Here we pass the byte array to user context to store in db
+                //        user.UserPhoto = imageData;
+
+                //        var result = await UserManager.CreateAsync(user, model.Password);
+
+                //        var addRoleResult = UserManager.AddToRole(user.Id, "User");
+                //        if (result.Succeeded)
+                //        {
+                //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                //            // Send an email with this link
+                //            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                //            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                //            return RedirectToAction("Index", "Home");
+                //        }
+                //    }
+                //    AddErrors(result);
+                //}
+
+                // If we got this far, something failed, redisplay form
+            }
+
+            return View(model);
+        }
+
+
+
+
+        
+
+
         #region Helpers
-        // Used for XSRF protection when adding external logins
+                // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager

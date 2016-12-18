@@ -1,36 +1,97 @@
 ﻿@using Microsoft.AspNet.Identity
 @if (Request.IsAuthenticated)
 {
+
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-            @if (User.IsInRole("Admin"))
-            {
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("Users", "List", "User")</li>
-                        <li>@Html.ActionLink("Categories", "List", "Category")</li>
-                    </ul>
+        <div id="mySidenav" class="sidenav">
+            <ul class="nav navbar-nav navbar-right">
+
+                <li><img class="small-image" src="@Url.Action("UserPhotos", "Home" )" /></li>
+                @if (User.IsInRole("Admin"))
+                {
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><img class="small-image" src="@Url.Action("UserPhotos", "Home" )" /></li>
+                            <li>@Html.ActionLink("Users", "List", "User")</li>
+                            <li>@Html.ActionLink("Categories", "List", "Category")</li>
+                        </ul>
+                    </li>
+
+                }
+
+
+                <li>
+                    @Html.ActionLink("Create", "Create", "Article")
                 </li>
 
-            }
-            <li>
-                @Html.ActionLink("Create", "Create", "Article")
-            </li>
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new {title = "Manage"})
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-        </ul>
+                <li>
+                    @Html.ActionLink("Account ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+            </ul>
+
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        </div>
+
     }
+    <button class="navbar-toggle" onclick="openNav()">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+
+    <div id="mySidenav" class="sidenav">
+
+        <ul class="nav navbar-nav navbar-right">
+
+            <li><p>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</p></li>
+            <li><p>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</p></li>
+            @using (Html.BeginForm("SimpleSearch", "Article", FormMethod.Post))
+            {
+                <li>
+                    <form>
+                        <div>
+                            <input type="text" id="articleName" name="articleName">
+
+                            <input type="submit" id="submitId" value="submit" />
+
+                        </div>
+                    </form>
+                </li>
+            }
+
+
+        </ul>
+
+
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    </div>
+    <button class="navbar-toggle" onclick="openNav()">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+
 }
+
+
+
+<script>
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+    }
+</script>
+

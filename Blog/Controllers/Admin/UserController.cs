@@ -151,7 +151,7 @@ namespace Blog.Controllers.Admin
 
                     //  Set user properties. 
                     user.Email = viewModel.User.Email;
-                    user.FullName = viewModel.User.FullName;
+                    user.UserName = viewModel.User.UserName;
                     user.UserName = viewModel.User.Email;
                     this.SetUserRoles(user, database, viewModel);
 
