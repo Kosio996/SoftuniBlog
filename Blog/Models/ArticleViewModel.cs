@@ -15,6 +15,9 @@ namespace Blog.Models
 
         public int CategoryId { get; set; }
 
+        public int? CommentId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
         public ICollection<Category> Categories { get; set; }
 
         [Required]

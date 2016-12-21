@@ -18,12 +18,13 @@ namespace Blog.Models
             this.tags = new HashSet<Tag>();
         }
 
-        public Article(string authorId, string title, string content, int categoryId)
+        public Article(string authorId, string title, string content, int categoryId, int? commentId)
         {
             this.AuthorId = authorId;
             this.Title = title;
             this.Content = content;
             this.CategoryId = categoryId;
+            this.CommentId = commentId;
             this.tags = new HashSet<Tag>();
         }
 
@@ -50,6 +51,11 @@ namespace Blog.Models
         public int CategoryId { get; set; }
 
         public virtual Category Category { get; set; }
+
+        [ForeignKey("Comment")]
+        public int? CommentId { get; set; }
+
+        public virtual Comment Comment { get; set; }
 
         public virtual ICollection<Tag> Tags
         {

@@ -93,7 +93,7 @@ namespace Blog.Controllers
                         .Id;
 
                     //  Set articles author
-                    var article = new Article(authorId, model.Title, model.Content, model.CategoryId);
+                    var article = new Article(authorId, model.Title, model.Content, model.CategoryId, model.CommentId);
 
                     this.SetArticleTags(article, model, database);
                     //  Save article in DB

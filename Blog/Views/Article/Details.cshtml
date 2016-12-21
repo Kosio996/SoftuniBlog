@@ -1,5 +1,5 @@
 ﻿@model Blog.Models.Article
-
+@using Blog.Models
 @{
     ViewBag.Title = "Details";
 }
@@ -26,8 +26,14 @@
             }
 
             @Html.ActionLink("Back", "Index", "Article", null, new { @class = "btn btn-default btn-xs tagTwo" })
-        </footer>
+            
 
+        </footer>
+        
     </article>
+
 </div>
+@Html.Partial("_Comments", new Article())
+@*@{ Html.RenderAction("CreateTwo", "Comments" ,new { @articleID = Model.Id }); }*@
+@Html.HiddenFor(x => x.Id)
 <hr />

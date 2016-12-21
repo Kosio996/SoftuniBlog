@@ -1,0 +1,31 @@
+﻿@model Blog.Models.Article
+
+@*@using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <div class="addcommentbox">
+            <h2> Add Comment </h2>
+            @Html.TextAreaFor(model => model.Comment)
+            <div class="ErrorMessage">
+                @Html.ValidationMessageFor(model => model.Comment)
+            </div>
+            <input id="addComment" type="button" onclick="" value="Add" />
+        </div>
+
+    }*@
+
+
+@*@using (Html.BeginForm("Create", "Comments", FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
+            {
+    <div class="form-group">
+        @Html.LabelFor(c => c.Comment, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-4">
+            @Html.TextAreaFor(model => model.Comment)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+            <input type="submit" class="btn btn-default" value="Comment" />
+        </div>
+    </div>
+}*@

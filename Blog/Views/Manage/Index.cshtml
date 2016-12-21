@@ -12,15 +12,19 @@
         <div>
             <h4>Change your account settings</h4>
             <hr />
+            <div>
+
+            </div>
             <img src="@Url.Action("UserPhotos", "Home" )" height="250" width="250" class="image-style" />
 
             @using (Html.BeginForm("ChangePicture", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-            {<div class="form-group">
-                @Html.LabelFor(m => m.UserPhoto, new { @class = "col-sm-4 control-label" })
-                <div class="col-sm-4">
-                    <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.UserPhoto, new { @class = "col-sm-4 control-label" })
+                    <div class="col-sm-4">
+                        <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                    </div>
                 </div>
-            </div>
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-4">
                     <input type="submit" class="btn btn-default" value="Change" />
@@ -41,60 +45,6 @@
                     }
                     ]
                 </dd>
-                <dt>External Logins:</dt>
-                <dd>
-                    @Model.Logins.Count [
-                    @Html.ActionLink("Manage", "ManageLogins") ]
-                </dd>
-                @*
-                    Phone Numbers can used as a second factor of verification in a two-factor authentication system.
-
-                     See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                        for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-
-                     Uncomment the following block after you have set up two-factor authentication
-                *@
-                @*
-                    <dt>Phone Number:</dt>
-                    <dd>
-                        @(Model.PhoneNumber ?? "None")
-                        @if (Model.PhoneNumber != null)
-                        {
-                            <br />
-                            <text>[&nbsp;&nbsp;@Html.ActionLink("Change", "AddPhoneNumber")&nbsp;&nbsp;]</text>
-                            using (Html.BeginForm("RemovePhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                <text>[<input type="submit" value="Remove" class="btn-link" />]</text>
-                            }
-                        }
-                        else
-                        {
-                            <text>[&nbsp;&nbsp;@Html.ActionLink("Add", "AddPhoneNumber")
-                        }
-                    </dd>
-                *@
-
-                @*@if (Model.TwoFactor)
-                    {
-                        using (Html.BeginForm("DisableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <text>Enabled
-                            <input type="submit" value="Disable" class="btn btn-link" />
-                            </text>
-                        }
-                    }
-                    else
-                    {
-                        using (Html.BeginForm("EnableTwoFactorAuthentication", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                        {
-                            @Html.AntiForgeryToken()
-                            <text>Disabled
-                            <input type="submit" value="Enable" class="btn btn-link" />
-                            </text>
-                        }
-                    }*@
 
             </dl>
         </div>

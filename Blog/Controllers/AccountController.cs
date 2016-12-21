@@ -445,21 +445,55 @@ namespace Blog.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult ChangePicture([Bind(Exclude = "UserPhoto")]RegisterViewModel model)
-        {
-
-            using (var database = new BlogDbContext())
-            {
-                //To convert the user uploaded Photo as Byte Array before save to Dd
-
-                var imageData = model.UserPhoto.ToString();
-                imageData = database.Users.ToString();
-                imageData.Contains(imageData);
+        //[HttpPost]
+        //public ActionResult ChangePicture([Bind(Exclude = "UserPhoto")]string id, EditUserViewModel viewModel)
+        //{
+        //    using (var database = new BlogDbContext())
+        //    {
 
 
-                database.Entry(imageData).State = EntityState.Modified;
-                database.SaveChanges();
+        //        //To convert the user uploaded Photo as Byte Array before save to Dd
+        //        byte[] imageData = null;
+        //        if (Request.Files.Count > 0)
+        //        {
+        //            HttpPostedFileBase poImgFile = Request.Files["UserPhoto"];
+
+        //            using (var binary = new BinaryReader(poImgFile.InputStream))
+        //            {
+        //                imageData = binary.ReadBytes(poImgFile.ContentLength);
+        //            }
+        //        }
+
+        //        //  Get user from database
+        //        var user = database.Users.FirstOrDefault(u => u.Id == id);
+
+        //        //  Check if the user exists 
+        //        if (user == null)
+        //        {
+        //            return HttpNotFound();
+        //        }
+
+        //        //  If password field is not empty , change password 
+        //        if (!string.IsNullOrEmpty(viewModel.Password))
+        //        {
+        //            var hasher = new PasswordHasher();
+        //            var passwordHash = hasher.HashPassword(viewModel.Password);
+        //            user.PasswordHash = passwordHash;
+        //        }
+
+        //        //  Set user properties. 
+        //        user.Email = viewModel.User.Email;
+        //        user.UserName = viewModel.User.UserName;
+        //        user.UserName = viewModel.User.Email;
+        //        user.UserPhoto = viewModel.User.UserPhoto;
+        //        this.SetUserRoles(user, database, viewModel);
+
+        //        //  Save changes
+        //        database.Entry(user).State = EntityState.Modified;
+        //        database.SaveChanges();
+
+
+
                 //        if (Request.Files.Count > 0)
                 //        {
                 //            HttpPostedFileBase poImgFile = Request.Files["UserPhoto"];
@@ -495,19 +529,40 @@ namespace Blog.Controllers
                 //}
 
                 // If we got this far, something failed, redisplay form
-            }
+        //    }
 
-            return View(model);
+        //    return View(model);
+        //}
+
+
+        public void SetUserRoles(ApplicationUser user, BlogDbContext db, EditUserViewModel model)
+        {
+            var userManager = Request
+                .GetOwinContext()
+                .GetUserManager<ApplicationUserManager>();
+
+            foreach (var role in model.Roles)
+            {
+                if (role.IsSelected)
+                {
+                    userManager.AddToRole(user.Id, role.Name);
+                }
+                else if (!role.IsSelected)
+                {
+                    userManager.RemoveFromRole(user.Id, role.Name);
+
+                }
+            }
         }
 
 
 
 
-        
+
 
 
         #region Helpers
-                // Used for XSRF protection when adding external logins
+        // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         private IAuthenticationManager AuthenticationManager

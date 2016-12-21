@@ -4375,7 +4375,7 @@ tbody.collapse.in {
 }
 
 .dropdown-menu {
-    position: absolute;
+    /*position: absolute;*/
     top: 100%;
     left: 0;
     z-index: 1000;
@@ -4387,7 +4387,7 @@ tbody.collapse.in {
     list-style: none;
     font-size: 15px;
     text-align: left;
-    background-color: #ffffff;
+    background-color: #111111;
     border: 1px solid #cccccc;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;

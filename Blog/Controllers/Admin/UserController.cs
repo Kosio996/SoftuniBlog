@@ -167,7 +167,7 @@ namespace Blog.Controllers.Admin
             return View(viewModel);
         }
 
-        private void SetUserRoles(ApplicationUser user, BlogDbContext db, EditUserViewModel model)
+        public void SetUserRoles(ApplicationUser user, BlogDbContext db, EditUserViewModel model)
         {
             var userManager = Request
                 .GetOwinContext()

@@ -22,9 +22,11 @@ namespace Blog.Models
         public string ConfirmPassword { get; set; }
 
         public IList<Role> Roles { get; set; }
-
-       
-
         
+        [System.ComponentModel.DataAnnotations.Display(Name = "UserPhoto")]
+        public byte[] UserPhoto { get; set; }
+
+
+
     }
 }
