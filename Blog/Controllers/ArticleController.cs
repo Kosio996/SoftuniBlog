@@ -317,21 +317,23 @@ namespace Blog.Controllers
             using (var database = new BlogDbContext())
             {
                 //  Get the article from database
-                var article = database.Articles
+
+                try
+                {
+                    var article = database.Articles
                     .Where(a => a.Title.Contains(articleName))
                     .Include(a => a.Author)
                     .Include(a => a.Tags)
                     .First();
-
-                if (article.Title.Contains(articleName))
-                {
                     return View(article);
+
                 }
-                else
+                catch
                 {
-                    ViewBag.Message = "noResult";
-                    return ViewBag("Article doesn't exist !");
+
                 }
+
+                return RedirectToAction("Index", "Home");
             }
         }
 
