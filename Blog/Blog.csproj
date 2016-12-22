@@ -227,6 +227,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\images\Kyrie-Irving-Wallpaper-HD.jpg" />
+    <Content Include="Content\images\photo_not_available.png" />
     <Content Include="Content\images\robots.png" />
     <Content Include="Content\SiteStyles.css" />
     <Content Include="Content\SnowFlakes.js" />

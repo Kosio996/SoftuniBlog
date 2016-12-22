@@ -161,4 +161,3 @@ H:\SoftUniBlog\SoftuniBlog\Blog\bin\Microsoft.Owin.Security.Twitter.xml
 H:\SoftUniBlog\SoftuniBlog\Blog\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 H:\SoftUniBlog\SoftuniBlog\Blog\obj\Debug\Blog.dll
 H:\SoftUniBlog\SoftuniBlog\Blog\obj\Debug\Blog.pdb
-H:\SoftUniBlog\SoftuniBlog\Blog\obj\Debug\Blog.csprojResolveAssemblyReference.cache
