@@ -26,7 +26,7 @@ namespace Blog.Controllers
                 return View(categories);
             }
         }
-
+        //
         public ActionResult ListArticles(int? categoryId)
         {
             if (categoryId == null)
